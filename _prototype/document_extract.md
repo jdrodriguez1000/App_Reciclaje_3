@@ -7,8 +7,8 @@
 - **Formato / extensión:** md
 - **Extraído por:** onboarding-reader
 - **Fecha:** 2026-07-19
-- **Confirmado por el humano:** no
-- **Estado:** borrador
+- **Confirmado por el humano:** sí
+- **Estado:** cerrado
 
 ## Cobertura
 
