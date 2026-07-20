@@ -100,6 +100,42 @@ Formulación textual de la hipótesis, en sus propias palabras (transcripción l
 
 Frase textual del cliente: "el analista no diseña la programación, pero si el analista no la puede confirmar, la programación está mal." Traza el vínculo explícito con la hipótesis de valor (Q5/§2): si un analista empieza a reprogramar todo manualmente por desconfianza en lo que propone el sistema, "volvimos al punto de partida" — es el mismo falsador de la hipótesis (el volumen de llamadas/reprogramaciones de seguimiento) visto desde el lado de la operación.
 
+### Q7 · área: §7 — Método de medición del Gatekeeper (del prototipo, no del proyecto)
+**P:** El brief da métrica y umbral (60% de adopción, NPS > 85%) pero no dice cómo ni sobre qué universo se miden — y usted mismo acaba de decir que el verdadero indicador de que la hipótesis funciona es el volumen de llamadas de seguimiento, no la adopción. Un prototipo de 3 semanas de camino feliz no genera datos reales de uso ni llamadas reales que medir. Entonces, para el gatekeeper de este prototipo específicamente (no del proyecto completo a 6 meses): ¿qué necesita ver funcionando en la demo del comité para considerar que el prototipo "pasó"? Por ejemplo: ¿le basta con que el camino feliz completo (cliente pide → analista confirma en 5 min → conductor/camión queda asignado sin cruces → cliente ve el estado avanzar) se ejecute sin errores frente a él, o hay algo más específico —como cierto número de escenarios de prueba, o que el Gerente de Operaciones lo valide en vivo— que use como criterio de "esto sí sirve"?
+**R:** Confirma la separación de horizontes: adopción 60% y NPS > 85% no se pueden medir en tres semanas y no va a fingir que sí — son del proyecto a 6 meses, con clientes reales. Para el prototipo da **cuatro criterios conjuntivos**: los cuatro se cumplen o el prototipo no pasa.
+
+1. **Camino feliz completo, en vivo, sin trampas:** cliente pide, se confirma en los 5 minutos, quedan asignados conductor y camión sin cruces, y el cliente ve el estado avanzar con la convención de colores — de principio a fin, delante del comité, con la aplicación funcionando de verdad. Nada de mostrar una imagen de cómo se vería ni de saltarse un paso porque falla. Si hay que explicar por qué algo no se puede mostrar, ya no pasó.
+
+2. **Mínimo tres solicitudes, no una:** en la misma franja horaria, con materiales y tamaños distintos, para que se vea que a cada una le corresponde el camión adecuado (regla dura 2 de Q3) y que ningún conductor queda con citas cruzadas (regla dura 1 de Q3). Este es el momento de la demo que le importa al Gerente de Operaciones, no la pantalla del cliente.
+
+3. **Un Analista de Operaciones real lo opera en frío (el de mayor peso, proxy explícito de la hipótesis de §2):** se sienta a un analista real, sin entrenamiento previo, frente a la pantalla, y se le pide revisar y confirmar la programación. Deben pasar dos cosas: que entienda qué está viendo sin que nadie le explique, y que confirme **sin querer reprogramar**. Si el primer impulso del analista es cambiar la programación, el prototipo falló aunque el software funcione perfecto — "es el mejor proxy que tengo de la hipótesis que discutimos: si quien opera no confía en lo que propone el sistema, el cliente tampoco va a confiar, y volvemos al Excel". Lo declara como el criterio que "de verdad le quita el sueño".
+
+4. **El Gerente de Operaciones lo dice en voz alta:** al final de la demo se le pregunta directamente si esto le sirve para organizar su operación; necesita un **sí explícito** — "está bonito" no cuenta como sí. Razón: él tiene que vivir con esto, y si no se compromete ahí, el MVP arranca sin dueño real.
+
+### Q8 · área: §6 — Convención de colores y estado de "retrasado"
+**P:** El brief menciona el flujo de estados que ve el cliente (solicitud → confirmación de solicitud → confirmación de recolección → inicio → recolección → cierre) y usted mencionó varias veces una "convención de colores" para representarlo, pero no la describió en detalle. Para que el prototipo la muestre bien en la demo: ¿ya tiene en mente qué color corresponde a cada estado (por ejemplo, algo tipo semáforo: gris/amarillo mientras se procesa, verde cuando está confirmado, rojo si algo se incumple o se retrasa), o prefiere que le proponga una convención simple de 3-4 colores y usted la valida? Y puntualmente: ¿hay un estado de "incumplido" o "retrasado" que deba verse en rojo, dado lo que me contó sobre que cada promesa rota queda ahora registrada y visible?
+**R:** **Nota honesta de proceso:** la primera mitad de esta pregunta era redundante — la convención de colores ya estaba completa en el brief (client_brief.md, texto correspondiente a la descripción del flujo del cliente), pero `_prototype/document_extract.md` no la capturó (no aparece en su tabla de cobertura ni en sus extractos por área), así que no estaba disponible para el interviewer al formular la pregunta. Causa raíz: falla de la etapa de ingesta, no de esta entrevista. Cita literal del brief, para que el material quede en la cadena (el writer lee log + extracto, y el extracto no la tiene):
+
+> "Ademas, debe tener una convencion de colores, Verde para realizado y gris claro para pendiente. Ademas cuando la recoleccion se llevo a cabo exitosamente utiliza el color verde, pero si se llevo a cabo de forma parcial utiliza el amarillo y si no se pudo llevar a cabo utiliza el color rojo. El cierre utilizará esta misma convencion."
+> — client_brief.md (sección "5. Cómo lo usarían, paso a paso", descripción del flujo del cliente)
+
+> "Ejemplo cuando el cliente solicita la recoleccion el flujo muestra Solicitud en color verde y abajo muestra la fecha y hora de realizacion de la solicitud."
+> — client_brief.md (misma sección)
+
+El cliente confirma esa convención tal cual y pide no gastar preguntas de su presupuesto en material ya escrito.
+
+**Respuesta a la parte nueva (estado de "retrasado"):** distingue dos cosas. El rojo/amarillo que ya existe en su convención corresponde a un **hecho reportado por una persona** — el conductor reporta que la recolección fue parcial (amarillo) o que no pudo recoger (rojo) — y eso sí entra en el prototipo. Lo que el interviewer preguntaba es distinto: un estado de "retrasado" **calculado automáticamente por el sistema**, comparando la hora confirmada contra el reloj. Eso NO se construye ahora.
+
+Razón declarada (no es por ahorrar esfuerzo): un retraso automático obliga a definir tolerancia en minutos, si depende del tipo de material, y qué pasa si el camión va en camino pero demorado — son reglas de operación real, competencia del **Gerente de Operaciones** (coherente con el mapa de decisión de §4/Q6), no del Analista de Negocios.
+
+**Criterio de demo:** el camino feliz recorre **solo gris → verde**; los seis estados avanzan y todo termina en verde. Si aparece rojo en la demo del comité, es señal de que algo se rompió, no una funcionalidad que se esté demostrando. Amarillo y rojo quedan funcionales (por el reporte del conductor) pero fuera del recorrido principal de la demo — mostrables aparte si alguien pregunta.
+
+**Aplazado a MVP:** cálculo automático de retraso, con su definición de tolerancia por tipo de material y tratamiento de camión demorado en ruta, a cargo del Gerente de Operaciones.
+
+La preocupación por que las promesas rotas queden registradas y visibles (mencionada en Q5/§2) sigue vigente pero como asunto del producto en operación real — no se reabre ni se resuelve en el prototipo.
+
+**Nota de método para el resto de la entrevista:** de aquí en adelante, contrastar cada pregunta candidata contra `client_brief.md` directamente, además del extracto, antes de formularla — el extracto demostró estar incompleto en al menos este punto.
+
 ## Cierre
 
 <!-- Rellenar solo al cerrar la entrevista (Estado: cerrada). -->
