@@ -64,6 +64,42 @@ La exclusión de §9 sigue vigente y ya no contradice al flujo: lo excluido es e
 
 **Aplazado a MVP:** la verificación de correo, ligada a la conversación de seguridad de datos que el brief marca como restricción innegociable — ahí se discutirá en serio quién puede crear cuentas y cómo se prueba que un correo es de quien dice ser.
 
+### Q5 · área: §2 — Hipótesis de valor central (falsable)
+**P:** El brief da la métrica de éxito (60% de adopción, NPS > 85%) pero no una hipótesis de valor explícita. Para formularla como afirmación falsable, ¿cuál de estas dos captura mejor lo que usted cree que va a pasar, o lo diría distinto: (a) "Si centralizamos la solicitud de recolección en una sola app, los clientes dejarán de usar llamada/WhatsApp/correo porque es más rápido y confiable que esperar respuesta manual", o (b) "El problema no es solo centralizar el canal, sino que el cliente confíe en que lo que pide en la app realmente se cumple (confirmación y recolección a tiempo), y por eso deja de llamar"? ¿O hay una tercera formulación que refleje mejor su apuesta?
+**R:** Elige (b), sin dudarlo, y aclara que (a) es lo que habría contestado hace tres meses — suena bien pero si fuera cierto el problema se resolvería con un formulario de Google. Conecta esto con lo que él mismo escribió en §2 del brief: que si el equipo de recolección sigue desorganizado y los clientes se siguen quejando, es un fracaso total — eso es el corazón del asunto. El cliente no llama por falta de dónde escribir; llama porque no confía, porque la última vez le dijeron que sí y no pasó.
+
+Formulación textual de la hipótesis, en sus propias palabras (transcripción literal, no parafraseada):
+
+> "El cliente deja de llamar cuando la app le cumple. Nuestra apuesta es que si la solicitud recibe una confirmación firme y esa recolección efectivamente ocurre en la fecha y hora confirmada, el cliente deja de usar teléfono, WhatsApp y correo — no porque la app sea más cómoda, sino porque ya no necesita perseguirnos. Y eso solo es posible si detrás la programación de camiones y conductores es real y se cumple."
+
+**Falsador declarado (el elemento más importante de la respuesta):** el indicador de refutación no es la adopción sino el **volumen de llamadas de seguimiento** ("¿sí van a venir?"). Criterio explícito del cliente: si construyen la app, la gente la usa, y aun así la gente sigue llamando a confirmar, la hipótesis está muerta — no importa que el 60% esté usando la app, significaría que centralizaron el canal sin arreglar nada.
+
+**Riesgo asumido a conciencia (no descuido):** la app puede empeorar la situación si la parte de operaciones no funciona. Hoy los incumplimientos se pierden en un WhatsApp y nadie lleva la cuenta; con la app, cada promesa rota queda registrada con fecha, hora y estado en rojo, visible para el cliente — "estaríamos documentando nuestro propio fracaso con mucho detalle". Por eso el NPS de 85% es alto a propósito: si la operación no cambia, ese número se desploma y será evidente.
+
+**Consecuencia de priorización:** el prototipo le importa más por el lado del Analista de Operaciones que por el del cliente — "la pantalla bonita del cliente la vende cualquiera"; lo que realmente se está apostando es que la programación automática sea buena y que el equipo la respete en vez de volver al Excel. Esto refuerza la priorización ya dada en Q1.
+
+**Nota para §7 (pendiente de abordar ahí):** el gatekeeper del brief mide adopción (60%) y NPS (>85%), pero el verdadero falsador que el cliente acaba de declarar es el volumen de llamadas de seguimiento — un prototipo de 3 semanas de camino feliz no puede medir eso con datos reales, así que el gatekeeper del prototipo tendrá que ser un proxy. Queda pendiente de hacer explícito con el cliente al llegar a §7.
+
+### Q6 · área: §4 — Poder de decisión de los stakeholders
+**P:** El brief ya declara el interés/expectativa de cada stakeholder (Gerente General, Gerente de Operaciones, Analistas de Operaciones, Conductores, Usuarios/clientes), pero no su poder de decisión. Concretamente para el prototipo de estas 3 semanas: si hay un desacuerdo sobre alcance o una decisión de último momento, ¿quién tiene la última palabra? ¿Es usted como Gerente General, o delega esa decisión operativa en el Gerente de Operaciones? Y dado lo que acaba de contarme sobre priorizar el flujo del Analista de Operaciones, ¿ese rol tiene poder de veto sobre cómo se comporta la programación automática, o solo la opera una vez definida?
+**R:** Corrección de dato: el humano **no es el Gerente General** — su rol es **Analista de Negocios**, y para estas tres semanas es la contraparte única del interviewer/prototipador. Pide explícitamente no consultar al Gerente General ni al Gerente de Operaciones para resolver "¿esto entra o no entra?" — solo a él, para evitar recibir tres respuestas distintas y perder días.
+
+**Mapa de decisión:**
+- **Analista de Negocios (el entrevistado):** última palabra sobre el alcance del prototipo.
+- **Gerente General:** decide todo lo que toque presupuesto (45K) o plazo del proyecto completo (6 meses). Ni el Analista de Negocios ni el prototipador lo deciden; se escala.
+- **Gerente de Operaciones:** decide todo lo que cambie cómo trabaja el equipo de recolección en la vida real — turnos, cómo se asignan camiones, qué se le puede exigir a un conductor. El Analista de Negocios no puede cambiarle la operación desde un prototipo.
+- **Conductores y clientes:** no deciden nada en estas tres semanas; son **observados, no consultados**. Si un conductor señala algo (p. ej. pantalla incómoda), se anota para el MVP y se sigue.
+
+**Protocolo de desbloqueo (regla operativa para el prototipado):** el Analista de Negocios se compromete a responder en **menos de 4 horas hábiles**. Si vence el plazo sin respuesta, el constructor está autorizado a tomar la decisión que **menos alcance agregue** y seguir; se lo cuenta después y el Analista de Negocios asume esa decisión.
+
+**Regla de escalamiento:** el constructor no escala directo a los gerentes; avisa al Analista de Negocios y es él quien escala (a Gerente General si toca presupuesto/plazo, a Gerente de Operaciones si toca la operación real).
+
+**Veto desdoblado del Analista de Operaciones (distinción fina):**
+- Sobre **cómo funciona el algoritmo** de asignación: no tiene veto. Esa regla la define el equipo del prototipo ahora, y en el MVP la decide el Gerente de Operaciones. Darle veto a los analistas sobre la lógica llevaría a que cada uno pida que el sistema replique su Excel actual — "automatizar el desorden actual", justo lo que se busca romper.
+- Sobre si la programación es **utilizable**: sí tiene un veto de hecho. Si el analista mira la programación propuesta y dice "esto no lo puedo confirmar, en la práctica no funciona", es una alerta seria que no se ignora — pero no la resuelve él solo: se lo comunica al Analista de Negocios, quien lo lleva al Gerente de Operaciones, y este decide si se cambia la regla o si el analista se adapta.
+
+Frase textual del cliente: "el analista no diseña la programación, pero si el analista no la puede confirmar, la programación está mal." Traza el vínculo explícito con la hipótesis de valor (Q5/§2): si un analista empieza a reprogramar todo manualmente por desconfianza en lo que propone el sistema, "volvimos al punto de partida" — es el mismo falsador de la hipótesis (el volumen de llamadas/reprogramaciones de seguimiento) visto desde el lado de la operación.
+
 ## Cierre
 
 <!-- Rellenar solo al cerrar la entrevista (Estado: cerrada). -->
