@@ -3,12 +3,12 @@
 ## Meta
 
 - **Proyecto:** ReciclApp <!-- FUENTE: _context/project.yaml (project.name) -->
-- **Entrevistado:** <por confirmar con el humano>
+- **Entrevistado:** Jota D — Analista de Negocios (rol declarado por el propio entrevistado en Q6; corrige la suposición inicial de "Gerente General")
 - **Entrevistador:** onboarding-interviewer
 - **Inicio:** 2026-07-19
 - **Timebox acordado:** Entrevista: 45 min / 20-25 preguntas (medir por preguntas, no reloj); si a la P25 quedan vacíos importantes, se anotan como supuestos marcados para una segunda ronda corta, sin alargar esta sesión. Prototipo: 3 semanas calendario (15 días hábiles), arranca el lunes siguiente al cierre de esta entrevista; feature freeze al cierre del día hábil 10 (fin semana 2) — los 5 días restantes son solo estabilización; si el alcance no cabe, se avisa el día 7-8, no el día 14.
-- **Estado:** en curso
-- **Sección en curso:** §6 (camino feliz — flujo cliente/generador y Analista de Operaciones)
+- **Estado:** cerrada
+- **Sección en curso:** — (entrevista cerrada; ver sección Cierre)
 - **Extracto documental:** _prototype/document_extract.md
 
 - **Áreas cubiertas por el documento (no se preguntan):** §1, §5, §9 (cubiertas); §3, §10 (n/a)
@@ -166,9 +166,45 @@ La preocupación por que las promesas rotas queden registradas y visibles (menci
 
 **Redacción de los tamaños cara al cliente (decisión suya):** no usar "pequeño/mediano/grande" en abstracto —no significa nada para alguien en su apartamento con cajas—, sino referencias físicas comprensibles: "cabe en el baúl de un carro" / "necesita una camioneta" / "necesita un camión". Los tamaños tienen entonces dos representaciones: la etiqueta interna del eje de la rejilla y el texto que ve el cliente.
 
+### Q11 · área: §6 — Cuentas de staff para la demo (Administrador dentro o fuera del prototipo)
+**P:** El brief dice que el Administrador es quien registra en la aplicación a los conductores, analistas y gerentes. Usted priorizó el flujo del cliente y del Analista de Operaciones, y dejó los dashboards gerenciales como sacrificables — pero no mencionó al Administrador. Para el prototipo: ¿el flujo de creación de usuarios por el Administrador entra en el camino feliz que se construye, o para la demo simplemente precargamos en los datos de prueba al analista, el o los conductores y sus usuarios/contraseñas ya creados (como hicimos con conductores y camiones en la regla dura 3), sin construir la pantalla del Administrador?
+**R:** Precargarlos; la pantalla del Administrador no entra. No lo mencionó antes porque para él nunca estuvo en discusión, pero reconoce que estuvo bien preguntarlo en vez de asumirlo.
+
+**Criterio aplicado (generaliza el mismo razonamiento de Q3 sobre camiones/conductores):** el Administrador es un rol de **puesta en marcha**, no parte del recorrido que se quiere demostrar. Nadie en el comité se va a emocionar viendo un formulario de crear usuarios —lo ha visto mil veces en cualquier sistema—; lo que no ha visto es que un pedido de recolección entre y salga programado solo.
+
+**Decisión:** analista, conductores y gerentes ya creados, con credenciales listas antes de la demo; cada rol debe poder entrar con su usuario y ver su pantalla.
+
+**Requisito de calidad de los datos de demo (verificable, no es preferencia estética):** datos realistas — nombres que suenen a personas, correos con el dominio de la empresa, placas de camión con formato colombiano real. Explícitamente prohibido: "analista1", "conductor_test", "prueba@prueba.com". Razón: los datos de juguete restan seriedad delante del Gerente General y cuestan lo mismo que hacerlos bien.
+
+**Requisito de volumen de los datos (dependencia cruzada explícita con la regla dura 1 de Q3 y el criterio 2 del gatekeeper de Q7):** el juego de datos debe tener suficientes conductores y camiones para sostener simultáneamente "sin cruces de horario" y "tres solicitudes en la misma franja con materiales y tamaños distintos". Modo de fallo advertido: con dos conductores y tres solicitudes simultáneas, la demo se cae por falta de datos, no por defecto del software — hay que dimensionar el juego de datos para evitarlo.
+
+**Manejo en la demo:** si alguien pregunta quién crea a los conductores, lo responde él de palabra — "existe el rol, está descrito, se construye en el MVP". Lo que le costaría caro es haber gastado dos días de los quince en una pantalla que nadie va a mirar.
+
+**Aplazado a MVP:** pantalla y flujo de administración de usuarios (rol Administrador).
+
+### Q12 · área: cierre de la entrevista
+**P:** Con 11 preguntas (de las 20-25 acordadas) considero que el camino feliz del cliente y del Analista de Operaciones —lo que usted marcó como el corazón del prototipo— quedó cubierto en profundidad, junto con las tres ambigüedades del brief resueltas con decisiones suyas. Lo único sin detallar son los dashboards gerenciales, que usted mismo dejó como sacrificables y "con datos de muestra" si alcanza el tiempo. ¿Está de acuerdo en que cerremos aquí la entrevista, dejando los dashboards como hueco declarado (no como pregunta pendiente), o prefiere que profundice en algo más antes de cerrar?
+**R:** "si cerremos las preguntas" — cierre confirmado por el humano.
+
 ## Cierre
 
-<!-- Rellenar solo al cerrar la entrevista (Estado: cerrada). -->
+- **Motivo de cierre:** Suficiente para el camino feliz del generador. El humano confirmó explícitamente el cierre en Q12 tras 11 preguntas de contenido (de las 20-25 acordadas en el timebox de Q1); no se agotó el timebox, se cerró por suficiencia declarada por el propio entrevistado.
 
-- **Motivo de cierre:** <pendiente>
-- **Huecos declarados:** <pendiente>
+- **Balance de cobertura de §1–§10:**
+  - §1 (objetivo y contexto): cubierta por el documento — no repreguntada.
+  - §2 (hipótesis de valor central): cubierta por la entrevista (Q5) — hipótesis falsable en palabras del cliente, con falsador declarado (volumen de llamadas de seguimiento, no adopción).
+  - §3 (tipo de prototipo dominante): n/a — no le corresponde al cliente, lo deduce el Descubridor.
+  - §4 (stakeholders / poder de decisión): cubierta por la entrevista (Q6) — mapa de decisión, protocolo de desbloqueo (4h hábiles), regla de escalamiento, veto desdoblado del Analista de Operaciones.
+  - §5 (actores): cubierta por el documento — no repreguntada.
+  - §6 (camino feliz + medio por actor): cubierta en profundidad por la entrevista (Q2, Q3, Q4, Q8, Q9, Q10, Q11) — ventana única de confirmación (5 min), algoritmo de asignación por zona con tres reglas duras, registro sin validación real + botones inertes Gmail/Apple, convención de colores (confirmada, ya estaba en el brief), canales de notificación (correo real + WhatsApp/push simulados), tabla camión×material×tamaño (estructura confirmada, contenido pendiente al día hábil 3 — ver huecos), cuentas de staff precargadas sin pantalla de Administrador.
+  - §7 (Gatekeeper): cubierta por la entrevista (Q7) — cuatro criterios conjuntivos del prototipo, distintos de la métrica de adopción/NPS del proyecto a 6 meses.
+  - §8 (timebox): cubierta por la entrevista (Q1) — timebox de la entrevista y del prototipo (3 semanas / 15 días hábiles, feature freeze día hábil 10), acordado antes del bucle.
+  - §9 (exclusiones): cubierta por el documento — no repreguntada; su conflicto aparente con §6 (A1) quedó resuelto en Q4.
+  - §10 (split por audiencia): n/a — el documento no plantea necesidad de artefactos segmentados por audiencia.
+  - A1, A2, A3 (ambigüedades del extracto): las tres resueltas con decisiones propias del cliente (Q4, Q2, Q3 respectivamente).
+
+- **Huecos declarados:**
+  1. **Dashboards del Gerente General y del Gerente de Operaciones (§6, parte no priorizada):** no se preguntó en profundidad por decisión explícita del humano (Q1) — quedan como sacrificables para el prototipo, construibles "si alcanza" y con datos de muestra. Es un hueco consciente, no una omisión: el humano priorizó expresamente el flujo del cliente y del Analista de Operaciones sobre estos dashboards.
+  2. **Contenido real de la tabla camión × material × tamaño (§6 / Q10):** la estructura (rejilla 3×3, material × tamaño) quedó confirmada y cerrada, pero el contenido de las celdas —qué tipos de camión existen realmente y qué carga cada uno— depende de que el Analista de Negocios lo obtenga del Gerente de Operaciones, comprometido para el día hábil 3. Hasta entonces se construye con una tabla provisional marcada como tal.
+
+- **Incidente de proceso (constancia para el `onboarding-writer`):** `_prototype/document_extract.md` resultó **incompleto** — no capturó la convención de colores que sí estaba en el brief (`_context/client_brief.md`, líneas 56 y 58, sección "5. Cómo lo usarían, paso a paso"), lo que llevó a una pregunta redundante (Q8) que el propio cliente señaló como gasto innecesario de su presupuesto de preguntas. La causa raíz es de la etapa de ingesta (`onboarding-reader`), no de esta entrevista. **Recomendación explícita para el writer:** al redactar `discovery.md`, contrastar también contra `_context/client_brief.md` directamente y no apoyarse únicamente en `document_extract.md` y en este log, para no perder o duplicar material que el extracto no haya capturado correctamente.
