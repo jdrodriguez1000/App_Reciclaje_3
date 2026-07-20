@@ -136,6 +136,36 @@ La preocupación por que las promesas rotas queden registradas y visibles (menci
 
 **Nota de método para el resto de la entrevista:** de aquí en adelante, contrastar cada pregunta candidata contra `client_brief.md` directamente, además del extracto, antes de formularla — el extracto demostró estar incompleto en al menos este punto.
 
+### Q9 · área: §6 — Canales de notificación (reales vs. simulados)
+**P:** El brief dice que el cliente recibe confirmaciones por email, WhatsApp o notificación push. Integrar de verdad WhatsApp Business API o push notifications reales puede comerse días del presupuesto de 15 hábiles que no tiene previstos para eso. Para el prototipo: ¿le sirve que esas notificaciones se simulen dentro de la propia app (por ejemplo, un panel o bandeja "notificaciones" visible en pantalla, sin salir realmente por email/WhatsApp/push), o es importante para la demo que al menos un canal salga de verdad —por ejemplo un correo real— aunque sea con un proveedor simple?
+**R:** Quiere un canal de verdad, y explica por qué no es capricho: la apuesta central (§2/Q5) es que el cliente deja de perseguir información porque se le avisa sin que tenga que preguntar. Si la notificación vive solo dentro de la app, el cliente sigue teniendo que entrar a buscarla — es más cómodo que llamar, pero es la misma dinámica de persecución. Si en la demo solo hay una bandeja interna, el Gerente General preguntará "¿y al cliente cómo le llega?", y "abriendo la app" no es la respuesta que quiere dar en esa sala.
+
+**Decisión puntual:** el correo electrónico sale de verdad, un solo canal. Proveedor más simple que se encuentre, sin plantillas, texto plano si hace falta. Requisito de demo: pedir una recolección desde su teléfono durante la demo y que el correo llegue en vivo a la bandeja de alguien del comité, mientras están sentados ahí — "ese momento vale más que veinte diapositivas".
+
+**Requisito de contenido del correo (verificable, no es detalle de copy):** debe traer la **fecha y hora confirmadas**, no un acuse genérico tipo "su solicitud fue recibida". Si el mensaje obliga a entrar a la app para ver el dato, se reproduce el problema original que el proyecto vino a resolver.
+
+**Techo de esfuerzo declarado (caso concreto del protocolo de desbloqueo de §4/Q6):** si el correo real cuesta más de un día de trabajo, se detiene la construcción y se le avisa.
+
+**WhatsApp y push:** simulados, dentro de la bandeja de notificaciones interna de la app, y **marcados visiblemente como simulados** — mismo tratamiento que los botones de Gmail/Apple de A1 (Q4): "enseñar el plano, no una fachada de cartón". Razón: WhatsApp Business tiene trámite de aprobación propio que no controla, y no lo va a meter en tres semanas.
+
+**Criterio general declarado para no ser consultado caso por caso (el elemento más importante de esta respuesta — regla de decisión autónoma para el resto del prototipo):**
+- **Simular** todo lo que sea trámite externo fuera del control del equipo (WhatsApp Business, cuentas de desarrollador, OAuth de Google/Apple) — ahí el tiempo no depende de ellos y se lo pueden "robar entero".
+- **Construir de verdad** lo que demuestre la hipótesis. Avisarle al cliente sin que pregunte no es un canal de entrega más: es literalmente la hipótesis (§2).
+
+### Q10 · área: §6 — Tipos de camión y tabla de correspondencia material/tamaño
+**P:** Para la regla dura de que el tipo de camión debe corresponder al material y tamaño (de la pregunta 3), necesito los tres tipos de camión concretos y su tabla de correspondencia. El brief menciona materiales como cartón, vidrio "u otro", y tamaños sin especificar categorías. Para el prototipo, ¿le sirve algo simple como: Camión Tipo A = carga pequeña/mixta, Tipo B = vidrio/frágil, Tipo C = carga grande/voluminosa; con tamaño en 2-3 categorías (pequeño/mediano/grande)? ¿O ya tiene en mente los tres tipos y su tabla, y prefiere dármelos usted para no inventar una clasificación que no corresponda a su operación real?
+**R:** No tiene la tabla y no la va a inventar: es exactamente lo que dijo en Q6 — las reglas de cómo se despacha un camión son del Gerente de Operaciones, no suyas. Si él arma esa tabla desde su escritorio, el equipo de recolección la verá en la demo y dirá "eso no es así", perdiendo justo el criterio 4 del gatekeeper (compromiso verbal del Gerente de Operaciones).
+
+**Compromiso con fecha:** consigue la tabla real hablando con el Gerente de Operaciones, con entrega para el **día hábil 3**. Mientras tanto se arranca con una tabla **provisional, marcada explícitamente como tal** en el código o donde corresponda, para que sea localizable y reemplazable — no debe llegar el día 8 con la provisional todavía puesta. Si el día 3 no llega la tabla real, se le avisa y él escala.
+
+**Corrección sustantiva al esquema propuesto por el interviewer (defecto de diseño, no matiz):** el esquema propuesto colapsaba material y tamaño en una sola etiqueta de tipo de camión ("Tipo B = vidrio/frágil", "Tipo C = carga grande"), lo que genera solapamiento y ambigüedad — un vidrio grande cabría en Tipo B y en Tipo C a la vez, y el sistema no podría desambiguar. Ejemplo dado: vidrio pequeño de una casa vs. vidrio de gran volumen de un restaurante no son el mismo camión.
+
+**Estructura confirmada (esto sí lo decide él, porque es estructura, no operación):** una **rejilla material × tamaño** — 3 materiales (cartón, vidrio, otro) × 3 tamaños = **9 filas**, cada una apunta a un tipo de camión. Varias filas pueden apuntar al mismo camión (se esperan 3-4 tipos de camión, no 9); ninguna celda queda ambigua. Construir esperando esta forma para que el día 3 solo se llenen las celdas con los datos reales.
+
+**Distinción de competencias aplicada (refina el mapa de §4/Q6):** la **estructura** de la tabla (rejilla material × tamaño) la decide el Analista de Negocios porque es diseño; el **contenido** —qué vehículos existen realmente y qué carga cada uno— es del Gerente de Operaciones porque es operación real.
+
+**Redacción de los tamaños cara al cliente (decisión suya):** no usar "pequeño/mediano/grande" en abstracto —no significa nada para alguien en su apartamento con cajas—, sino referencias físicas comprensibles: "cabe en el baúl de un carro" / "necesita una camioneta" / "necesita un camión". Los tamaños tienen entonces dos representaciones: la etiqueta interna del eje de la rejilla y el texto que ve el cliente.
+
 ## Cierre
 
 <!-- Rellenar solo al cerrar la entrevista (Estado: cerrada). -->
