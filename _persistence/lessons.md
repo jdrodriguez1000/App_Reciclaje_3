@@ -13,6 +13,7 @@
 | L-001 | El extracto de la ingesta perdió contenido del brief | 2026-07-19 |
 | L-002 | Dos agentes carecen de `Bash` pese a que sus skills exigen commitear | 2026-07-19 |
 | L-003 | El humano corrige mejor que el agente cuando se le muestra una propuesta concreta | 2026-07-19 |
+| L-004 | El reporte de un subagente no basta como verificación; ejercitar el artefacto directamente | 2026-07-20 |
 
 ## Formato
 
@@ -91,3 +92,32 @@
   3. No suavizar en el log las refutaciones del humano a las propuestas del agente: el razonamiento
      de por qué algo estaba mal es material de diseño reutilizable.
 - **Fecha:** 2026-07-19
+
+### L-004 — El reporte de un subagente no basta como verificación; ejercitar el artefacto directamente
+
+- **Contexto:** T-006. El `prototype-builder` materializó `_prototype/prototype/` y reportó sus
+  propias desviaciones declaradas (correo simulado, botón de demo, precarga ampliada), pero el
+  humano y el orquestador levantaron el servidor y lo ejercitaron por API en vez de aceptar el
+  reporte tal cual.
+- **Problema:** el reporte del agente **omitió dos comportamientos reales del motor**, encontrados
+  solo al probar: (a) el límite de capacidad de unidades hace que la cuarta solicitud del mismo
+  tipo de camión en la misma franja quede sin asignar (violaría la regla dura 3 de D-002 con margen
+  cero frente al criterio 2 del gatekeeper); (b) el motor usa `zonaAmpliada=true` para la segunda y
+  tercera solicitud del mismo tipo — una decisión de diseño no declarada en el discovery ni en el
+  propio reporte del agente. Ninguno de los dos es un bug oculto: son comportamientos del código que
+  el agente escribió y no verificó contra las reglas duras que él mismo debía cumplir.
+- **Solución / aprendizaje:** un agente constructor puede reportar honestamente lo que decidió
+  cambiar a propósito (desviaciones conscientes) sin haber verificado exhaustivamente que el
+  resultado sigue cumpliendo las reglas duras del discovery bajo condiciones límite (aquí: cuarta
+  solicitud del mismo tipo). El reporte del agente es necesario pero no suficiente como
+  verificación del gate.
+- **Cómo aplicarlo:**
+  1. Antes de dar por materializado un prototipo para el gatekeeper, **ejercitarlo directamente**
+     (API, UI o el medio que corresponda) contra los criterios y reglas duras declarados, no solo
+     leer el reporte del agente constructor.
+  2. Probar explícitamente los **límites** de los datos de demo (p. ej., una solicitud más de la
+     que el guion contempla), porque ahí es donde aparecen los comportamientos de reserva del motor
+     que el agente no pensó en declarar.
+  3. Toda decisión de diseño descubierta por verificación (no reportada por el constructor) se
+     registra como desviación a decidir (ver [[tasks]] T-011), no se corrige en silencio.
+- **Fecha:** 2026-07-20
